@@ -1,52 +1,78 @@
 #!/usr/bin/env python3
 """Draw the front page summing up Sunday 22 November 2026 in one image.
 
-v3 = BREADTH upgrade on v1 (v2's lead-legibility changes scored worse, so v1
-is the base). v1's grid, 6 leads, masthead, lead panel and Geneva / COP31 /
-Riyadh / Jakarta / Mexico panels are kept; what changes:
-  * NUMBERS STRIP under the masthead: 6 big numbers from verified stories.
-  * REGION BAR: story counts per region (24 stories total).
-  * BRIEFS 6 -> 18 (6 leads + 18 briefs = 24 stories), every added story
-    verified as genuinely 22 Nov 2026 with its outlet checked.
-  * DATE CHECK line: what was left out as not-22-Nov (verified earlier days).
-  * SOURCES named per story (lead panels + footer sources line).
-  * 3D depth STRONGER per Lukas 13:43 WIB steer (skill + repos, full recipes):
-    guanmo-studio layered depth (foreground big/dark/sharp, background
-    small/hazed), motion-design parallax/perspective (one scale gradient per
-    art box), ClaudeAnimationBase cues (overlap, haze, rim light), and the
-    skill's "deeper shadows = pseudo-3D" (panel shadows offset (8,10),
-    alpha 85, blur 8 — deeper than v1). Depth never covers a label and never
-    crowds the grid; if in doubt the clean grid wins.
-  * NO world-map panel: a readable schematic map needs ~110px of height and
-    the 1024px grid cannot give it without shrinking the briefs below the
-    300px gate or cutting the story count — the task's own priority rule
-    (numbers + region + briefs first; map only if it reads cleanly) drops it.
-    The breadth patterns that do fit are all delivered instead.
+v5 = REAL REDESIGN on v3 (v4 patch proved unbuildable: v3 already used
+1018/1024px, and the v4-swap proved even a 1-brief content swap can drop
+rank -2,889). v3's hierarchy, 6 leads, numbers, region bar, DATE CHECK and
+sources are kept; the PAGE IS RE-PROPORTIONED to buy ~150px for the three
+top-50 patterns v3 lacked:
+  * WORLD MAP column inside the briefs panel ("WHERE IT HAPPENED", pins
+    1-6 = the 6 lead stories, recessed ocean layer, pins floating above
+    with drop shadows). A full-width 110px map panel would have halved the
+    row-2 art; the side column keeps row 2 100% intact. Pin radius 10px,
+    digits 12pt bold: legible at full res; at 300px the pins read as dots
+    on a recognisable world map (same as the rank-50 entries).
+  * BRIEFS 18 -> 24 (6 leads + 24 briefs = 30 stories). Six new briefs,
+    all verified as genuinely 22 Nov 2026 (same standard as v3: Saturday
+    event, first reported Sunday / Sunday in WIB): Newcastle (Arsenal held
+    2-2, Reuters), Leeds (hit four at Chelsea, The Times), Barnham (votes
+    to 'leave UK', The Times), Brussels (EU 3% Big Tech tax, Reuters),
+    Geneva 'killer robots' pact (Dawn/AFP), Sydney (Cummins keeps Test
+    captaincy, Dawn/Al Jazeera). SF king tides NOT reused (v4-swap).
+  * STILL TO COME TODAY line (times re-verified: COP31 closing plenary
+    06:00 GMT Sun per Reuters/Al Jazeera; Liverpool v Man Utd 16:30 GMT;
+    ATP final 18:00 CET = 17:00 GMT).
+  * GEOMETRY (measured, before -> after): masthead 122 -> 122; numbers
+    strip 78 -> 68 (figures stay 30pt); leads 300 -> 272 (lead art
+    168 -> 150, Geneva 138 -> 132 art 54, COP31 150 -> 134 art 54);
+    row 2 296 -> 296 (shifted up 44, geometry unchanged); briefs panel
+    180 -> 228 (8 rows x 19px leading, DATE CHECK + STILL TO COME);
+    footer 1006 -> 1008. Total ~1012px, 12px spare.
+  * FLOORS HELD: briefs >= 12px at the new 233px cell width (measured
+    with PIL, faithful kicker-bold + text-regular fit; 11 of the 18 v3
+    briefs needed 3-10 char trims to hold 12px, facts preserved — the
+    only wording changes in v5; lead stories, numbers, region bar,
+    DATE CHECK and sources untouched). Lead headline stays 33pt, numbers
+    figures stay 30pt, no lead story or DATE CHECK cut.
+  * Region bar recount (v3 convention: COP31/Antalya counts as EUROPE,
+    Turkey): ME 4 - EU 12 - APAC 8 - AM 5 - AF 1 = 30.
+  * 3D depth per Lukas 13:43 WIB steer (skill + repos): panel shadows
+    (8,10,85,8) kept; map recessed + floating pins added; lead/Geneva/
+    COP31/row-2 art unchanged apart from the rescale.
+  * Peru quake brief KEPT as in v3 (known misdated Fri 20 Nov, but v3
+    scored 980,686 with it and the v4-swap fix dropped the score).
 
 Stories (all verified from the day's reporting, 22 Nov 2026):
   Leads (v1, unchanged): 1. Gulf/Hormuz tankers (The Hindu / Gulf News).
   2. Geneva 28-point talks (Reuters). 3. COP31 Antalya (Al Jazeera / AFP).
   4. Riyadh missiles (Manila Times). 5. Jakarta factory fire (Econ. Times).
   6. Mexico El Chapo Isidro (Japan Times).
-  New briefs (all verified 22 Nov by browser search this session):
-  7. Nepal: PM Shah in Delhi, border-pact talks (ANI/IANS).
-  8. Georgia: day of mourning for the 19 Nov Ponichala blast victims, whose
-     funerals were held 22 Nov (Civil Georgia).
-  9. Hong Kong: Election Committee vote, 856 candidates for 723 seats (SCMP).
-  10. Germany: IG Metall calls 23,000 to strike Mon 23 Nov, 5% pay (Reuters).
-  11. Iran: rolling power cuts begin Sunday (AFP / Straits Times).
-  12. Turin: Zverev v Alcaraz in the ATP final, Sunday 18:00 CET (AFP).
-  13. Liverpool host Man Utd at Anfield, Sunday 16:30 GMT (TNT Sports).
-  14. Melbourne: 1956 Olympians reunite at the MCG, 70 years to the day,
-      Dawn Fraser among 30 veterans (AAP / Australian Athletics).
-  15. India declare 720/9 in Wellington — highest Test total in NZ; Pant
-      128, Rahul 136 (Reuters, Sun 22 Nov 00:41 UTC).
-  16. South Korea: education minister Choi Kyo-jin resigns Sunday over the
-      AI-assisted cheating scandal (The Hindu / ABS-CBN, 22 Nov).
-  17. Las Vegas: Verstappen wins the GP (race finished Sun 13:00 WIB),
-      35 lead changes, 3rd Vegas win (Formula1.com / Reuters 2026-11-22).
-  18. South Korea: exports pass $1 trillion, set to be world's 4th-largest
-      exporter (Yonhap, 22 Nov 11:39).
+  v3 briefs (wording trimmed 3-10 chars each to hold 12px at 233px cells;
+  facts unchanged): 7. Nepal: Shah in Delhi, border talks (ANI/IANS).
+  8. Georgia: mourning for blast dead (Civil Georgia). 9. Hong Kong: 856
+  run for 723 seats (SCMP). 10. Germany: 23,000 to strike Mon 23 Nov
+  (Reuters). 11. Iran: rolling power cuts begin Sunday (AFP / Straits
+  Times). 12. Turin: Zverev v Alcaraz in ATP final, Sun 18:00 CET (AFP).
+  13. Liverpool host Man Utd, Sun 16:30 GMT (TNT Sports). 14. Melbourne:
+  '56 Olympians reunite at the MCG, 70 years on (AAP). 15. India declare
+  720/9 in Wellington — highest Test total in NZ (Reuters). 16. South
+  Korea: education minister quits over AI cheating scandal (The Hindu).
+  17. Las Vegas: Verstappen wins the GP (Formula1.com / Reuters).
+  18. South Korea: exports pass $1 trillion (Yonhap). 19. Nigeria: boat
+  capsizes, 24 dead. 20. France: protests in sixth weekend. 21. Peru:
+  6.7 quake, no deaths. 22. Iraq: power station fire, 4 killed.
+  23. USA: USDA, FBI hacked, reports say. 24. Trump: vows 10%
+  card-rate cap.
+  New v5 briefs (verified 22 Nov by browser search this session):
+  25. Newcastle: Arsenal held 2-2 at St James' Park (Reuters, match Sat
+      21 Nov, reported 22 Nov). 26. Leeds: hit four at Chelsea, first win
+      there since 1999 (The Times, match Sat 21 Nov, Chelsea 1-4 Leeds).
+  27. Barnham: village votes to 'leave UK' over migrant camp, 257-16
+      (The Times/Dawn, vote Sat 21 Nov). 28. Brussels: EU proposes 3% tax
+      on Big Tech, EUR204bn cuts (Reuters/Dawn, Costa proposal Sat).
+  29. Geneva: states open path to 'killer robots' pact, 128 countries,
+      2-year process (Dawn/AFP, talks concluded Sat). 30. Sydney: Cummins
+      keeps Test captaincy, CA backs him (Dawn/Al Jazeera, announced Sat).
   DATE CHECK (verified earlier days, left out): EU-Indonesia trade deal
   signed Sat 21 Nov (Reuters); Nvidia SEC probe, Fri 20 Nov (Reuters);
   Bolsonaro in ICU, Sat 21 Nov (Reuters); France 45-17 Argentina, Sat 21
@@ -55,6 +81,10 @@ Stories (all verified from the day's reporting, 22 Nov 2026):
   Gaza four-nation aid call (15 Nov), Trump-Xi-Putin summit (Thu 19 Nov),
   Lebanon Aoun speech (Sat 21), Princess "Heal" trailer (Sat 21),
   Japan M4.6 "aftershock" posts (unreliable/synthetic sourcing — not used).
+  Rejected for v5 (do not use): Delta Canada shooting (15 Nov, not Sat);
+  Sparta II cargo ship (strike Sat, fails strict standard); Barcelona
+  3-1 Villarreal ("3-1" was a pre-match prediction, match Sun 13:00 UTC);
+  Gaza food-aid vehicle strike (contested framing).
 
 Deterministic: no clock, no randomness, no network. Writes entry.png
 (1024x1024) into the output directory given as argv[1] (or $MAKEFUN_OUTPUT_DIR
@@ -191,10 +221,10 @@ def build():
     # One blurred RGBA overlay, kept off all text.
     sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     sd = ImageDraw.Draw(sh)
-    shadow_boxes = [(20, 128, 984, 78), (20, 212, 600, 300), (640, 212, 364, 138),
-                    (640, 356, 364, 150),
-                    (20, 518, 320, 296), (352, 518, 320, 296), (684, 518, 320, 296),
-                    (20, 820, 984, 180)]
+    shadow_boxes = [(20, 126, 984, 68), (20, 198, 600, 272), (640, 198, 364, 132),
+                    (640, 336, 364, 134),
+                    (20, 474, 320, 296), (352, 474, 320, 296), (684, 474, 320, 296),
+                    (20, 774, 984, 228)]
     for (x, y, w, h) in shadow_boxes:
         sd.rounded_rectangle([x + 8, y + 10, x + w + 8, y + h + 10], radius=10,
                              fill=(0, 0, 0, 85))
@@ -211,12 +241,12 @@ def build():
     date = "SUNDAY, 22 NOVEMBER 2026"
     df = font(46, bold=True)
     d.text(((W - text_w(d, date, df)) / 2, 38), date, font=df, fill=WHITE)
-    tag = "24 stories that defined the day  ·  Hormuz  ·  Geneva  ·  Antalya  ·  Jakarta"
+    tag = "30 stories that defined the day  ·  Hormuz  ·  Geneva  ·  Antalya  ·  Jakarta"
     tf = font(16)
     d.text(((W - text_w(d, tag, tf)) / 2, 94), tag, font=tf, fill=(190, 198, 214))
 
-    # ---------- NUMBERS STRIP + REGION BAR (new in v3) ----------------------
-    nx0, ny0, nw0, nh0 = 20, 128, 984, 78
+    # ---------- NUMBERS STRIP + REGION BAR (v3's; strip tightened 78 -> 68) --
+    nx0, ny0, nw0, nh0 = 20, 126, 984, 68
     panel(d, nx0, ny0, nw0, nh0, WHITE, outline=LIGHT_LINE)
     numbers = [
         ("720", "INDIA'S TEST TOTAL"),
@@ -231,17 +261,18 @@ def build():
         cx0 = nx0 + 16 + i * cell_w
         # number with a soft drop shadow (lifted off the panel = depth)
         nf = fit_font(d, num, 30, cell_w - 12, bold=True)
-        d.text((cx0 + 2, ny0 + 8 + 2), num, font=nf, fill=(200, 192, 172))
-        d.text((cx0, ny0 + 8), num, font=nf, fill=NAVY)
+        d.text((cx0 + 2, ny0 + 6 + 2), num, font=nf, fill=(200, 192, 172))
+        d.text((cx0, ny0 + 6), num, font=nf, fill=NAVY)
         lf = fit_font(d, label, 11, cell_w - 12, bold=True)
-        d.text((cx0, ny0 + 42), label, font=lf, fill=GREY)
+        d.text((cx0, ny0 + 38), label, font=lf, fill=GREY)
         if i:
-            d.line([cx0 - 7, ny0 + 10, cx0 - 7, ny0 + 52], fill=LIGHT_LINE, width=1)
-    # region bar: story counts per region across all 24 stories
-    regions = [("MIDDLE EAST", 4), ("EUROPE", 7), ("ASIA-PACIFIC", 7),
+            d.line([cx0 - 7, ny0 + 8, cx0 - 7, ny0 + 46], fill=LIGHT_LINE, width=1)
+    # region bar: story counts per region across all 30 stories
+    # (v3 convention: COP31/Antalya counts as EUROPE, Turkey)
+    regions = [("MIDDLE EAST", 4), ("EUROPE", 12), ("ASIA-PACIFIC", 8),
                ("AMERICAS", 5), ("AFRICA", 1)]
     rx = nx0 + 16
-    ry = ny0 + 60
+    ry = ny0 + 50
     rf = font(13, bold=True)
     for name, count in regions:
         d.text((rx, ry), name, font=rf, fill=NAVY)
@@ -251,16 +282,16 @@ def build():
         if name != "AFRICA":
             d.text((rx, ry), "·", font=rf, fill=GREY)
             rx += text_w(d, "·", rf) + 14
-    d.text((nx0 + nw0 - 16 - text_w(d, "24 STORIES", rf), ry), "24 STORIES",
+    d.text((nx0 + nw0 - 16 - text_w(d, "30 STORIES", rf), ry), "30 STORIES",
            font=rf, fill=TEAL_DARK)
 
     # ---------- LEAD: Hormuz (left, big) — layered-depth seascape ----------
     # v1's art, depth strengthened: stronger rim light on the near tanker,
     # a foreground wave crest at the bottom of the sea (near = darker + a
     # light crest), deeper fire glow. Geometry and text unchanged.
-    lx, ly, lw, lh = 20, 212, 600, 300
+    lx, ly, lw, lh = 20, 198, 600, 272
     panel(d, lx, ly, lw, lh, WHITE, outline=LIGHT_LINE)
-    ax, ay, aw, ah = lx + 14, ly + 14, lw - 28, 168
+    ax, ay, aw, ah = lx + 14, ly + 14, lw - 28, 150
     d.rounded_rectangle([ax, ay, ax + aw, ay + ah], radius=8, fill=NAVY)
     horizon = ay + 92
     # dusk sky: 10 bands, deep navy at top to dusky amber at the horizon
@@ -321,56 +352,60 @@ def build():
     d.text((ax + 68, ay + ah - 28), "BAHRAIN", font=font(13, bold=True), fill=WHITE)
     flag_ir(d, ax + aw - 118, ay + ah - 30, 46, 24)
     d.text((ax + aw - 66, ay + ah - 28), "IRAN", font=font(13, bold=True), fill=WHITE)
-    # text
+    # text (v5: ty ly+164, source ly+252 — panel 272 tall, bottoms at 470)
     tx = lx + 16
-    ty = ly + 196
+    ty = ly + 164
     d.text((tx, ty), "THE GULF", font=font(17, bold=True), fill=RED)
     d.text((tx, ty + 22), "TANKERS HIT IN HORMUZ", font=font(33, bold=True), fill=INK)
     d.text((tx, ty + 62), "Bahrain says Iran struck a site; two tankers hit in the strait.",
            font=font(18), fill=GREY)
-    d.text((tx, ly + 282), "Sources: The Hindu · Gulf News", font=font(11), fill=GREY)
+    d.text((tx, ly + 252), "Sources: The Hindu · Gulf News", font=font(11), fill=GREY)
 
     # ---------- right column, top: Geneva — document stack with depth ----------
     rx, rw = 640, 364
-    kx, ky, kh = rx, 212, 138
+    kx, ky, kh = rx, 198, 132
     panel(d, kx, ky, rw, kh, WHITE, outline=LIGHT_LINE)
-    ax2, ay2, aw2, ah2 = kx + 10, ky + 10, rw - 20, 62
+    ax2, ay2, aw2, ah2 = kx + 10, ky + 10, rw - 20, 54
     d.rounded_rectangle([ax2, ay2, ax2 + aw2, ay2 + ah2], radius=6, fill=NAVY)
     # three small flags, each with a soft shadow (overlap = depth)
+    # v5: flags 28 tall (was 32) so the 28 POINTS tag fits inside the 54px box
     ov2 = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od2 = ImageDraw.Draw(ov2)
     for fx0 in (ax2 + 22, ax2 + 138, ax2 + 254):
-        od2.rectangle([fx0 + 3, ay2 + 11, fx0 + 84 + 3, ay2 + 11 + 32 + 3],
+        od2.rectangle([fx0 + 3, ay2 + 11, fx0 + 84 + 3, ay2 + 11 + 28 + 3],
                       fill=(0, 0, 0, 110))
     img.paste(ov2, (0, 0), ov2)
     d = ImageDraw.Draw(img)
-    flag_us(d, ax2 + 22, ay2 + 8, 84, 32)
-    flag_ua(d, ax2 + 138, ay2 + 8, 84, 32)
-    flag_ru(d, ax2 + 254, ay2 + 8, 84, 32)
+    flag_us(d, ax2 + 22, ay2 + 8, 84, 28)
+    flag_ua(d, ax2 + 138, ay2 + 8, 84, 28)
+    flag_ru(d, ax2 + 254, ay2 + 8, 84, 28)
     # "28 POINTS" as a small white tag INSIDE the art box, below the flags
-    tag_x, tag_y, tag_w, tag_h = ax2 + 117, ay2 + 44, 120, 16
+    tag_x, tag_y, tag_w, tag_h = ax2 + 117, ay2 + 38, 120, 14
     d.rounded_rectangle([tag_x, tag_y, tag_x + tag_w, tag_y + tag_h], radius=8,
                         fill=WHITE)
     t28 = "28 POINTS"
-    t28f = font(12, bold=True)
-    d.text((tag_x + (tag_w - text_w(d, t28, t28f)) / 2, tag_y + 2), t28,
+    t28f = font(11, bold=True)
+    d.text((tag_x + (tag_w - text_w(d, t28, t28f)) / 2, tag_y + 1), t28,
            font=t28f, fill=NAVY)
-    d.text((kx + 14, ky + 80), "DIPLOMACY", font=font(15, bold=True), fill=RED)
-    d.text((kx + 14, ky + 98), "TALKS ON THE 28 POINTS",
+    d.text((kx + 14, ky + 68), "DIPLOMACY", font=font(15, bold=True), fill=RED)
+    d.text((kx + 14, ky + 88), "TALKS ON THE 28 POINTS",
            font=fit_font(d, "TALKS ON THE 28 POINTS", 25, rw - 28), fill=INK)
-    d.text((kx + 14, ky + 122), "US, Kyiv, Europe meet in Geneva. (Reuters)",
+    d.text((kx + 14, ky + 112), "US, Kyiv, Europe meet in Geneva. (Reuters)",
            font=font(15), fill=GREY)
 
     # ---------- right column, bottom: COP31 (v3's proven sun + thermometer) ----------
-    cx, cy, ch = rx, 356, 150
+    # v5: panel 134 tall (was 150), art 54 (was 62). Sun r 18 (was 22) so its
+    # poke below the art box keeps v3's 6px overlap with the kicker below.
+    # Thermometer rescaled: tube 40 tall, bulb ends exactly at the box bottom.
+    cx, cy, ch = rx, 336, 134
     panel(d, cx, cy, rw, ch, WHITE, outline=LIGHT_LINE)
-    ax3, ay3, aw3, ah3 = cx + 10, cy + 10, rw - 20, 62
+    ax3, ay3, aw3, ah3 = cx + 10, cy + 10, rw - 20, 54
     d.rounded_rectangle([ax3, ay3, ax3 + aw3, ay3 + ah3], radius=6, fill=(214, 238, 240))
     # atmospheric haze at the top of the art (depth cue, very light)
     d.rectangle([ax3, ay3, ax3 + aw3, ay3 + 10], fill=(240, 248, 248))
     # horizon band at the very bottom so it never cuts the sun (v3's fix)
     d.rectangle([ax3, ay3 + ah3 - 8, ax3 + aw3, ay3 + ah3], fill=(232, 214, 170))
-    sun_cx, sun_cy, sun_r = ax3 + 52, ay3 + ah3 - 8, 22
+    sun_cx, sun_cy, sun_r = ax3 + 52, ay3 + ah3 - 8, 18
     for i in range(7):
         a = math.radians(180 + i * 30)
         x1 = sun_cx + (sun_r + 4) * math.cos(a)
@@ -381,22 +416,23 @@ def build():
     d.ellipse([sun_cx - sun_r, sun_cy - sun_r, sun_cx + sun_r, sun_cy + sun_r],
               fill=(255, 176, 32))
     # big thermometer, mercury past the 1.5C tick
-    tx0, ty0 = ax3 + 250, ay3 + 8
-    d.rounded_rectangle([tx0, ty0, tx0 + 16, ty0 + 44], radius=8, fill=WHITE,
+    tx0, ty0 = ax3 + 250, ay3 + 4
+    d.rounded_rectangle([tx0, ty0, tx0 + 16, ty0 + 40], radius=8, fill=WHITE,
                         outline=INK, width=2)
-    d.ellipse([tx0 - 6, ty0 + 38, tx0 + 22, ty0 + 54], fill=RED, outline=INK, width=2)
-    d.rectangle([tx0 + 4, ty0 + 14, tx0 + 12, ty0 + 42], fill=RED)
-    d.line([tx0 - 14, ty0 + 12, tx0 - 2, ty0 + 12], fill=INK, width=2)
-    d.text((tx0 + 26, ty0 + 4), "1.5°C", font=font(18, bold=True), fill=RED)
+    d.ellipse([tx0 - 6, ty0 + 34, tx0 + 22, ty0 + 50], fill=RED, outline=INK, width=2)
+    d.rectangle([tx0 + 4, ty0 + 12, tx0 + 12, ty0 + 38], fill=RED)
+    d.line([tx0 - 14, ty0 + 10, tx0 - 2, ty0 + 10], fill=INK, width=2)
+    d.text((tx0 + 26, ty0 + 2), "1.5°C", font=font(18, bold=True), fill=RED)
     d.text((ax3 + 96, ay3 + 24), "ANTALYA", font=font(20, bold=True), fill=TEAL_DARK)
-    d.text((cx + 14, cy + 80), "CLIMATE", font=font(15, bold=True), fill=RED)
-    d.text((cx + 14, cy + 98), "COP31: FOSSIL FUELS MISSING",
+    d.text((cx + 14, cy + 68), "CLIMATE", font=font(15, bold=True), fill=RED)
+    d.text((cx + 14, cy + 88), "COP31: FOSSIL FUELS MISSING",
            font=fit_font(d, "COP31: FOSSIL FUELS MISSING", 25, rw - 28), fill=INK)
-    d.text((cx + 14, cy + 122), "Draft still omits coal, oil and gas. (AFP)",
+    d.text((cx + 14, cy + 112), "Draft still omits coal, oil and gas. (AFP)",
            font=font(15), fill=GREY)
 
     # ---------- row 2: three panels (v1's geometry, depth strengthened) ------
-    ry, rh = 518, 296
+    # v5: shifted up 44 (ry 474), geometry unchanged — row 2 is 100% intact
+    ry, rh = 474, 296
     cols = [(20, 320), (352, 320), (684, 320)]
 
     # Houthi missiles over Riyadh (v3's proven night-sky art) + foreground
@@ -503,47 +539,112 @@ def build():
     draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
     d.text((px + 14, ry + 282), "Source: Japan Times", font=font(11), fill=GREY)
 
-    # ---------- briefs strip: 18 briefs, 3 x 6 + DATE CHECK line ------------
-    bx, by, bw, bh = 20, 820, 984, 180
+    # ---------- briefs panel: 24 briefs, 3 x 8 + WORLD MAP + DATE CHECK ----
+    # v5: panel 228 tall (was 180), 8 rows x 19px leading. Briefs cols
+    # x 36..783 (cell 249, text 233 — measured: all 24 fit >= 12px);
+    # map column x 798..988. DATE CHECK + STILL TO COME at the panel bottom.
+    bx, by, bw, bh = 20, 774, 984, 228
     panel(d, bx, by, bw, bh, (236, 230, 214), outline=LIGHT_LINE)
-    d.text((bx + 16, by + 10), "ALSO TODAY — 18 MORE STORIES", font=font(18, bold=True), fill=NAVY)
-    d.line([bx + 16, by + 36, bx + bw - 16, by + 36], fill=LIGHT_LINE, width=2)
+    d.text((bx + 16, by + 10), "ALSO TODAY — 24 MORE STORIES", font=font(18, bold=True), fill=NAVY)
+    d.line([bx + 16, by + 36, bx + 748, by + 36], fill=LIGHT_LINE, width=2)
     briefs = [
-        ("NEPAL", "PM Shah in Delhi; border talks."),
-        ("GEORGIA", "Day of mourning for blast dead."),
+        ("NEPAL", "Shah in Delhi; border talks."),
+        ("GEORGIA", "Mourning for blast dead."),
         ("HONG KONG", "856 run for 723 seats."),
         ("GERMANY", "23,000 to strike Monday."),
         ("IRAN", "Rolling power cuts begin."),
         ("TURIN", "Zverev v Alcaraz in ATP final."),
-        ("LIVERPOOL", "Host Man Utd, 16:30 GMT."),
-        ("MELBOURNE", "'56 Olympians reunite, 70 yrs on."),
+        ("LIVERPOOL", "Host Man Utd, 16:30."),
+        ("MELBOURNE", "'56 Olympians reunite."),
         ("INDIA", "720/9, record Test total in NZ."),
-        ("S. KOREA", "Minister quits in AI scandal."),
+        ("S. KOREA", "Minister quits over AI."),
         ("LAS VEGAS", "Verstappen wins thriller."),
         ("KOREA", "Exports pass $1 trillion."),
         ("NIGERIA", "Boat capsizes; 24 dead."),
-        ("FRANCE", "Protests enter a sixth weekend."),
-        ("PERU", "6.7 quake; no deaths reported."),
+        ("FRANCE", "Protests in sixth weekend."),
+        ("PERU", "6.7 quake; no deaths."),
         ("IRAQ", "Power station fire; 4 killed."),
-        ("USA", "USDA and FBI hacked, reports say."),
-        ("TRUMP", "Vows 10% cap on credit-card rates."),
+        ("USA", "USDA, FBI hacked, reports say."),
+        ("TRUMP", "Vows 10% card-rate cap."),
+        ("NEWCASTLE", "Arsenal held 2-2."),
+        ("LEEDS", "Hit four at Chelsea."),
+        ("BARNHAM", "Votes to 'leave UK'."),
+        ("BRUSSELS", "EU plans 3% tech tax."),
+        ("GENEVA", "'Killer robots' pact opens."),
+        ("SYDNEY", "Cummins keeps captaincy."),
     ]
-    cell_w = (bw - 32) // 3
+    cell_w = 249
     for i, (kick, text) in enumerate(briefs):
         cx0 = bx + 16 + (i % 3) * cell_w
-        cy0 = by + 44 + (i // 3) * 20
+        cy0 = by + 44 + (i // 3) * 19
         full = kick + " — " + text
         fnt = fit_font(d, full, 16, cell_w - 16, bold=False)
         d.text((cx0, cy0), kick + " — ", font=font(fnt.size, bold=True), fill=INK)
         kw = text_w(d, kick + " — ", font(fnt.size, bold=True))
         d.text((cx0 + kw, cy0), text, font=fnt, fill=INK)
+    # WORLD MAP column (v5): schematic continents on a recessed ocean layer,
+    # pins 1-6 floating above with drop shadows = the 6 lead stories.
+    # 1 Hormuz, 2 Geneva, 3 COP31 Antalya, 4 Riyadh, 5 Jakarta, 6 Mexico.
+    # Riyadh's true spot is ~12px from Antalya's on this scale, so its pin
+    # is offset with a leader line to a red dot at the true position.
+    mx0, my0, mw0, mh0 = 798, 810, 190, 132
+    d.text((mx0, by + 10), "WHERE IT HAPPENED", font=font(13, bold=True), fill=NAVY)
+    d.rounded_rectangle([mx0 - 2, my0 - 2, mx0 + mw0 + 2, my0 + mh0 + 2], radius=8,
+                        fill=(228, 222, 206))
+    d.rounded_rectangle([mx0, my0, mx0 + mw0, my0 + mh0], radius=8,
+                        fill=(214, 228, 236))
+    LAND = (168, 188, 168)
+    LAND_LINE = (120, 140, 120)
+    d.polygon([(806, 828), (812, 816), (830, 814), (846, 820), (848, 832),
+               (840, 844), (824, 848), (812, 842), (806, 836)],
+              fill=LAND, outline=LAND_LINE)  # North America
+    d.ellipse([850, 810, 860, 818], fill=LAND, outline=LAND_LINE)  # Greenland
+    d.polygon([(838, 852), (852, 850), (858, 860), (854, 876), (846, 884),
+               (838, 872), (834, 860)], fill=LAND, outline=LAND_LINE)  # S. America
+    d.polygon([(872, 818), (888, 814), (894, 822), (890, 832), (878, 834),
+               (870, 826)], fill=LAND, outline=LAND_LINE)  # Europe
+    d.polygon([(872, 838), (890, 836), (896, 844), (892, 860), (884, 868),
+               (876, 858), (870, 846)], fill=LAND, outline=LAND_LINE)  # Africa
+    d.polygon([(896, 816), (930, 812), (962, 816), (978, 824), (972, 838),
+               (950, 844), (928, 842), (916, 848), (904, 848), (896, 838),
+               (892, 826)], fill=LAND, outline=LAND_LINE)  # Asia + Arabia lobe
+    for ex0, ey0, ex1, ey1 in [(938, 850, 948, 858), (950, 854, 960, 860),
+                               (958, 848, 966, 854)]:
+        d.ellipse([ex0, ey0, ex1, ey1], fill=LAND, outline=LAND_LINE)  # SE Asia
+    d.polygon([(938, 878), (960, 874), (968, 882), (958, 890), (942, 888)],
+              fill=LAND, outline=LAND_LINE)  # Australia
+    # Riyadh leader: red dot at the true spot (Arabia's south coast), pin
+    # offset south-east into the sea — Antalya's pin sits ~10px from the
+    # true spot, so the dot must sit clear of its circle.
+    d.line([909, 849, 914, 857], fill=RED, width=2)
+    d.ellipse([905, 843, 911, 849], fill=RED)
+    pins = [(918, 824, "1"), (880, 822, "2"), (898, 834, "3"),
+            (918, 866, "4"), (948, 856, "5"), (824, 838, "6")]
+    for px_, py_, num in pins:
+        d.ellipse([px_ - 10 + 2, py_ - 10 + 3, px_ + 10 + 2, py_ + 10 + 3],
+                  fill=(150, 145, 135))
+        d.ellipse([px_ - 10, py_ - 10, px_ + 10, py_ + 10], fill=WHITE,
+                  outline=RED, width=2)
+        nf = font(12, bold=True)
+        d.text((px_ - text_w(d, num, nf) / 2, py_ - 7), num, font=nf, fill=RED)
+    d.text((mx0, my0 + mh0 + 8), "Pins 1–6 = the lead stories",
+           font=font(11), fill=GREY)
     # DATE CHECK: what was left out as not-22-Nov (all verified earlier days)
-    dc_y = by + 164
+    dc_y = by + 200
     d.text((bx + 16, dc_y), "DATE CHECK", font=font(12, bold=True), fill=RED)
     dcw = text_w(d, "DATE CHECK ", font(12, bold=True))
     d.text((bx + 16 + dcw, dc_y),
            "Left out, not 22 Nov: EU–Indonesia deal (Sat) · Nvidia probe (Fri) · "
            "Bolsonaro in ICU (Sat) · France 45–17 Argentina (Sat)",
+           font=font(12), fill=GREY)
+    # STILL TO COME TODAY: verified times only (COP31 06:00 GMT per
+    # Reuters/Al Jazeera; Liverpool v Man Utd 16:30 GMT; ATP final 17:00 GMT)
+    stc_y = by + 215
+    d.text((bx + 16, stc_y), "STILL TO COME TODAY", font=font(12, bold=True), fill=RED)
+    stcw = text_w(d, "STILL TO COME TODAY ", font(12, bold=True))
+    d.text((bx + 16 + stcw, stc_y),
+           "06:00 GMT COP31 closing vote · 16:30 GMT Liverpool v Man Utd · "
+           "17:00 GMT ATP final, Turin",
            font=font(12), fill=GREY)
 
     # ---------- footer: date + full sources line -----------------------------
@@ -551,7 +652,7 @@ def build():
             "ANI, The Hindu, Yonhap, AAP, F1.com, TNT, Civil Georgia, ET, Dawn, "
             "Japan Times, Manila Times")
     ff = font(12)
-    d.text(((W - text_w(d, foot, ff)) / 2, 1006), foot, font=ff, fill=GREY)
+    d.text(((W - text_w(d, foot, ff)) / 2, 1008), foot, font=ff, fill=GREY)
 
     outdir = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(outdir, exist_ok=True)

@@ -67,6 +67,8 @@ GREEN_BOARD = (30, 70, 54)
 WHITE = (255, 255, 255)
 GREY = (90, 88, 80)
 LIGHT_LINE = (210, 202, 184)
+SUN_AMBER = (255, 176, 32)
+FIRE_CORE = (255, 240, 160)
 
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 
@@ -308,7 +310,7 @@ def build():
     od.ellipse([fxc - 34, ny - 6, fxc + 34, ny + 6], fill=(255, 110, 20, 130))
     tongue(fxc, ny, 22, 52, (255, 110, 20, 200))
     tongue(fxc - 4, ny, 15, 40, (255, 190, 60, 220))
-    tongue(fxc + 2, ny, 9, 30, (255, 240, 160, 240))
+    tongue(fxc + 2, ny, 9, 30, FIRE_CORE + (240,))
     tongue(fxc - 26, ny, 10, 26, (255, 140, 40, 190))
     tongue(fxc + 26, ny, 10, 30, (255, 140, 40, 190))
     # smoke above the fire: tall + dark, rising from the flame station
@@ -382,9 +384,9 @@ def build():
         y1 = sun_cy + (sun_r + 4) * math.sin(a)
         x2 = sun_cx + (sun_r + 13) * math.cos(a)
         y2 = sun_cy + (sun_r + 13) * math.sin(a)
-        d.line([x1, y1, x2, y2], fill=(255, 176, 32), width=3)
+        d.line([x1, y1, x2, y2], fill=SUN_AMBER, width=3)
     d.ellipse([sun_cx - sun_r, sun_cy - sun_r, sun_cx + sun_r, sun_cy + sun_r],
-              fill=(255, 176, 32))
+              fill=SUN_AMBER)
     # big thermometer, mercury past the 1.5C tick
     tx0, ty0 = ax3 + 250, ay3 + 8
     d.rounded_rectangle([tx0, ty0, tx0 + 16, ty0 + 44], radius=8, fill=WHITE,
@@ -400,6 +402,11 @@ def build():
     d.text((cx + 14, cy + 122), "Final draft still omits coal, oil and gas.", font=font(15), fill=GREY)
 
     # ---------- row 2: three panels (v1's geometry) ----------
+    # Row-2 panels share one headline font and one deck font: caching the
+    # font objects (Pillow fonts are stateless for drawing) keeps the three
+    # panels typographically identical without re-loading the face each time.
+    ROW2_HEAD = font(26, bold=True)
+    ROW2_DECK = font(16)
     ry, rh = 452, 296
     cols = [(20, 320), (352, 320), (684, 320)]
 
@@ -412,21 +419,21 @@ def build():
         d.ellipse([ax4 + sx, ay4 + sy, ax4 + sx + 3, ay4 + sy + 3], fill=WHITE)
     d.arc([ax4 + 10, ay4 + 40, ax4 + 150, ay4 + 150], start=200, end=330, fill=(255, 200, 90), width=3)
     d.arc([ax4 + 140, ay4 + 30, ax4 + 290, ay4 + 140], start=210, end=330, fill=(255, 200, 90), width=3)
-    bx_, by_ = ax4 + 205, ay4 + 42
+    burst_x, burst_y = ax4 + 205, ay4 + 42
     for k in range(8):
         a = math.radians(k * 45)
-        d.line([bx_, by_, bx_ + 22 * math.cos(a), by_ + 22 * math.sin(a)],
-               fill=(255, 240, 160), width=3)
-    d.ellipse([bx_ - 6, by_ - 6, bx_ + 6, by_ + 6], fill=(255, 240, 160))
+        d.line([burst_x, burst_y, burst_x + 22 * math.cos(a), burst_y + 22 * math.sin(a)],
+               fill=FIRE_CORE, width=3)
+    d.ellipse([burst_x - 6, burst_y - 6, burst_x + 6, burst_y + 6], fill=FIRE_CORE)
     base = ay4 + ah4
     for bx, bw_, bh_ in [(0, 60, 24), (64, 46, 36), (114, 58, 20), (176, 50, 32), (230, 46, 22)]:
         d.rectangle([ax4 + bx, base - bh_, ax4 + bx + bw_, base], fill=(14, 14, 22))
     d.text((px + 14, ry + 154), "GULF WAR SPREADS", font=font(15, bold=True), fill=RED)
-    lines = wrap(d, "MISSILES AT RIYADH STOPPED", font(26, bold=True), pw - 28)
-    ty = draw_lines(d, px + 14, ry + 176, lines, font(26, bold=True), INK, leading=30)
+    lines = wrap(d, "MISSILES AT RIYADH STOPPED", ROW2_HEAD, pw - 28)
+    ty = draw_lines(d, px + 14, ry + 176, lines, ROW2_HEAD, INK, leading=30)
     deck = "Coalition says it downed 3 Houthi missiles."
-    lines = wrap(d, deck, font(16), pw - 28)
-    draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    lines = wrap(d, deck, ROW2_DECK, pw - 28)
+    draw_lines(d, px + 14, ty + 6, lines, ROW2_DECK, GREY, leading=20)
 
     # Jakarta factory fire — layered flames (v3's clean fire) + roof rim light
     px, pw = cols[1]
@@ -446,21 +453,21 @@ def build():
     # (puff centres clamped so no puff escapes the art box)
     ov3 = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od3 = ImageDraw.Draw(ov3)
-    fxc = fx0 + 90
-    od3.ellipse([fxc - 30, fy0 - 22, fxc + 30, fy0 + 6], fill=(255, 110, 20, 150))
-    od3.ellipse([fxc - 20, fy0 - 16, fxc + 20, fy0 + 6], fill=(255, 190, 60, 200))
-    od3.ellipse([fxc - 10, fy0 - 9, fxc + 10, fy0 + 6], fill=(255, 240, 160, 230))
-    for sx, sy, sr, a in [(fxc - 14, fy0 - 24, 10, 90), (fxc + 8, fy0 - 34, 12, 70),
-                          (fxc - 2, fy0 - 40, 10, 50)]:
+    flame_cx = fx0 + 90
+    od3.ellipse([flame_cx - 30, fy0 - 22, flame_cx + 30, fy0 + 6], fill=(255, 110, 20, 150))
+    od3.ellipse([flame_cx - 20, fy0 - 16, flame_cx + 20, fy0 + 6], fill=(255, 190, 60, 200))
+    od3.ellipse([flame_cx - 10, fy0 - 9, flame_cx + 10, fy0 + 6], fill=FIRE_CORE + (230,))
+    for sx, sy, sr, a in [(flame_cx - 14, fy0 - 24, 10, 90), (flame_cx + 8, fy0 - 34, 12, 70),
+                          (flame_cx - 2, fy0 - 40, 10, 50)]:
         od3.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(120, 120, 130, a))
     img.paste(ov3, (0, 0), ov3)
     d = ImageDraw.Draw(img)
     d.text((px + 14, ry + 154), "INDONESIA", font=font(15, bold=True), fill=RED)
-    lines = wrap(d, "JAKARTA FACTORY FIRE", font(26, bold=True), pw - 28)
-    ty = draw_lines(d, px + 14, ry + 176, lines, font(26, bold=True), INK, leading=30)
+    lines = wrap(d, "JAKARTA FACTORY FIRE", ROW2_HEAD, pw - 28)
+    ty = draw_lines(d, px + 14, ry + 176, lines, ROW2_HEAD, INK, leading=30)
     deck = "3 killed, 36 missing after the blaze."
-    lines = wrap(d, deck, font(16), pw - 28)
-    draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    lines = wrap(d, deck, ROW2_DECK, pw - 28)
+    draw_lines(d, px + 14, ty + 6, lines, ROW2_DECK, GREY, leading=20)
 
     # Mexico: El Chapo Isidro captured — gold star badge with depth
     px, pw = cols[2]
@@ -490,11 +497,11 @@ def build():
     d.ellipse([scx - 9, scy - 9, scx + 9, scy + 9], fill=NAVY)
     d.text((scx - 5, scy - 12), "★", font=font(18, bold=True), fill=(255, 226, 130))
     d.text((px + 14, ry + 154), "MEXICO", font=font(15, bold=True), fill=RED)
-    lines = wrap(d, "EL CHAPO ISIDRO HELD", font(26, bold=True), pw - 28)
-    ty = draw_lines(d, px + 14, ry + 176, lines, font(26, bold=True), INK, leading=30)
+    lines = wrap(d, "EL CHAPO ISIDRO HELD", ROW2_HEAD, pw - 28)
+    ty = draw_lines(d, px + 14, ry + 176, lines, ROW2_HEAD, INK, leading=30)
     deck = "Cartel boss captured; 11 dead in Sinaloa."
-    lines = wrap(d, deck, font(16), pw - 28)
-    draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    lines = wrap(d, deck, ROW2_DECK, pw - 28)
+    draw_lines(d, px + 14, ty + 6, lines, ROW2_DECK, GREY, leading=20)
 
     # ---------- briefs strip: clean single lines, 3 x 2 ----------
     bx, by, bw, bh = 20, 762, 984, 178
@@ -509,6 +516,7 @@ def build():
         ("USA", "USDA and FBI hacked, reports say."),
         ("TRUMP", "Vows 10% cap on credit-card rates."),
     ]
+    # 3 columns x 2 rows: brief i sits in column i % 3, row i // 3.
     cell_w = (bw - 32) // 3
     for i, (kick, text) in enumerate(briefs):
         cx0 = bx + 16 + (i % 3) * cell_w

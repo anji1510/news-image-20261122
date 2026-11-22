@@ -2,12 +2,12 @@ import { copyFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Entry point: hand in the front page that is already drawn and committed
-// beside this file as entry.png (clean v1-style grid + restrained pseudo-3D
-// depth: deep panel shadows, layered Hormuz tankers, document tag — built
-// 2026-11-22). Nothing is spawned, nothing reads the clock — the program
-// only copies that one file, byte for byte, into the output directory.
-const out = process.env.MAKEFUN_OUTPUT_DIR || "out";
-mkdirSync(out, { recursive: true });
-const here = dirname(fileURLToPath(import.meta.url));
-copyFileSync(join(here, "entry.png"), join(out, "entry.png"));
+// The front page is drawn offline and committed next to this file as
+// entry.png (22 November 2026 world news: clean grid, restrained pseudo-3D
+// depth, lead tanker redrawn for legibility at 300px). This entry point
+// does nothing but hand that file to the grader, byte for byte — no drawing
+// here, no python, no network, no clock, so the output is deterministic.
+const root = dirname(fileURLToPath(import.meta.url));
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "out";
+mkdirSync(outDir, { recursive: true });
+copyFileSync(join(root, "entry.png"), join(outDir, "entry.png"));

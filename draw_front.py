@@ -50,7 +50,9 @@ Stories (all verified from the day's reporting, 22 Nov 2026):
   DATE CHECK (verified earlier days, left out): EU-Indonesia trade deal
   signed Sat 21 Nov (Reuters); Nvidia SEC probe, Fri 20 Nov (Reuters);
   Bolsonaro in ICU, Sat 21 Nov (Reuters); France 45-17 Argentina, Sat 21
-  (rugby). Also excluded, not listed: EU EUR204bn budget cut (Sat 21),
+  (rugby); Peru 6.7 quake, Fri 20 Nov 19:09 local (USGS / Reuters) —
+  swapped out of the briefs for the San Francisco king tides (NWS, Sun 22
+  Nov 08:48, 7.9 ft). Also excluded, not listed: EU EUR204bn budget cut (Sat 21),
   Denmark expels Russian attache (Fri 20), Scotland 67-5 Japan (Sat 21),
   Gaza four-nation aid call (15 Nov), Trump-Xi-Putin summit (Thu 19 Nov),
   Lebanon Aoun speech (Sat 21), Princess "Heal" trailer (Sat 21),
@@ -523,7 +525,7 @@ def build():
         ("KOREA", "Exports pass $1 trillion."),
         ("NIGERIA", "Boat capsizes; 24 dead."),
         ("FRANCE", "Protests enter a sixth weekend."),
-        ("PERU", "6.7 quake; no deaths reported."),
+        ("SAN FRANCISCO", "King tides flood Bay shore."),
         ("IRAQ", "Power station fire; 4 killed."),
         ("USA", "USDA and FBI hacked, reports say."),
         ("TRUMP", "Vows 10% cap on credit-card rates."),
@@ -543,7 +545,7 @@ def build():
     dcw = text_w(d, "DATE CHECK ", font(12, bold=True))
     d.text((bx + 16 + dcw, dc_y),
            "Left out, not 22 Nov: EU–Indonesia deal (Sat) · Nvidia probe (Fri) · "
-           "Bolsonaro in ICU (Sat) · France 45–17 Argentina (Sat)",
+           "Bolsonaro in ICU (Sat) · France 45–17 Argentina (Sat) · Peru quake (Fri)",
            font=font(12), fill=GREY)
 
     # ---------- footer: date + full sources line -----------------------------

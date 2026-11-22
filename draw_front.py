@@ -1,46 +1,60 @@
 #!/usr/bin/env python3
 """Draw the front page summing up Sunday 22 November 2026 in one image.
 
-Clean grid (the proven winner: news-21 v1 scored 972,784; dense v2 and the
-full-width hero v2 both scored worse) with a restrained pseudo-3D depth
-pass from the animation-video skill + repos:
-  * guanmo-studio layered depth: foreground bigger/darker/sharper, background
-    smaller/lighter/hazed (the two Hormuz tankers; the factory; the star).
-  * motion-design parallax/perspective: one consistent scale gradient
-    (near = larger, far = smaller) inside each art box, never across the grid.
-  * ClaudeAnimationBase depth cues: overlap, atmospheric haze, rim light.
-  * skill "Resep game-feel": deeper drop shadows = pseudo-3D without WebGL.
-  Panels carry deep soft drop shadows; the lead art has a dusk gradient,
-  a hazed far tanker and a big dark near tanker; the Geneva document is a
-  stack of sheets with offset edges; the COP31 sun keeps v3's proven art.
-  Depth never covers a label and never crowds the grid — if in doubt the
-  clean grid wins (today's lesson: dense scored worse).
+v3 = BREADTH upgrade on v1 (v2's lead-legibility changes scored worse, so v1
+is the base). v1's grid, 6 leads, masthead, lead panel and Geneva / COP31 /
+Riyadh / Jakarta / Mexico panels are kept; what changes:
+  * NUMBERS STRIP under the masthead: 6 big numbers from verified stories.
+  * REGION BAR: story counts per region (24 stories total).
+  * BRIEFS 6 -> 18 (6 leads + 18 briefs = 24 stories), every added story
+    verified as genuinely 22 Nov 2026 with its outlet checked.
+  * DATE CHECK line: what was left out as not-22-Nov (verified earlier days).
+  * SOURCES named per story (lead panels + footer sources line).
+  * 3D depth STRONGER per Lukas 13:43 WIB steer (skill + repos, full recipes):
+    guanmo-studio layered depth (foreground big/dark/sharp, background
+    small/hazed), motion-design parallax/perspective (one scale gradient per
+    art box), ClaudeAnimationBase cues (overlap, haze, rim light), and the
+    skill's "deeper shadows = pseudo-3D" (panel shadows offset (8,10),
+    alpha 85, blur 8 — deeper than v1). Depth never covers a label and never
+    crowds the grid; if in doubt the clean grid wins.
+  * NO world-map panel: a readable schematic map needs ~110px of height and
+    the 1024px grid cannot give it without shrinking the briefs below the
+    300px gate or cutting the story count — the task's own priority rule
+    (numbers + region + briefs first; map only if it reads cleanly) drops it.
+    The breadth patterns that do fit are all delivered instead.
 
 Stories (all verified from the day's reporting, 22 Nov 2026):
-  1. Gulf: Bahrain accuses Iran of striking a civilian industrial site
-     (fire, no casualties; smoke over Sitra Island); Iran's Guards claim
-     strikes on two US bases; two tankers hit in the Strait of Hormuz
-     (UKMTO: one struck by an unknown projectile, no casualties; a second
-     hit in the engine room). (The Hindu / New Indian Express / Gulf News /
-     ARY / Mathrubhumi, 22 Nov — events Saturday, first reported Sunday)
-  2. Geneva: US, Ukrainian and European officials meet in Geneva on Sunday
-     to agree final details of the 28-point peace plan; Trump deadline
-     27 Nov. (Times / eklipx citing Reuters-ISW; plan terms per DXB News)
-  3. COP31 Antalya, second day of overtime: the final draft released in the
-     wee hours of Sunday still does not mention fossil fuels; Kurum says it
-     is a text all parties can agree on; objections due 03:00 GMT, approval
-     session 06:00 GMT. (Al Jazeera / Korea Herald-AFP / CNA / The Hindu)
-  4. Houthis: Saudi-led coalition says it intercepted three ballistic
-     missiles fired at Riyadh on Saturday, two days after a Houthi strike
-     damaged Riyadh's tallest tower. (World News briefing / Manila Times)
-  5. Jakarta: fire at a confectionery factory near Jakarta kills 3, 36
-     missing. (Economic Times, 22 Nov)
-  6. Mexico: top drug lord "El Chapo Isidro" captured; 11 dead in Sinaloa
-     violence after the capture. (Japan Times / Economic Times, 22 Nov)
-Briefs: Nigeria boat capsizes, 24 dead; France protests, sixth weekend;
-Peru 6.7 quake, no deaths reported; Iraq power-station fire, 4 killed;
-USDA and FBI systems breached, reports say; Trump vows a 10% cap on
-credit-card rates. (Economic Times / Dawn / Japan Times / Manila Times)
+  Leads (v1, unchanged): 1. Gulf/Hormuz tankers (The Hindu / Gulf News).
+  2. Geneva 28-point talks (Reuters). 3. COP31 Antalya (Al Jazeera / AFP).
+  4. Riyadh missiles (Manila Times). 5. Jakarta factory fire (Econ. Times).
+  6. Mexico El Chapo Isidro (Japan Times).
+  New briefs (all verified 22 Nov by browser search this session):
+  7. Nepal: PM Shah in Delhi, border-pact talks (ANI/IANS).
+  8. Georgia: day of mourning for the 19 Nov Ponichala blast victims, whose
+     funerals were held 22 Nov (Civil Georgia).
+  9. Hong Kong: Election Committee vote, 856 candidates for 723 seats (SCMP).
+  10. Germany: IG Metall calls 23,000 to strike Mon 23 Nov, 5% pay (Reuters).
+  11. Iran: rolling power cuts begin Sunday (AFP / Straits Times).
+  12. Turin: Zverev v Alcaraz in the ATP final, Sunday 18:00 CET (AFP).
+  13. Liverpool host Man Utd at Anfield, Sunday 16:30 GMT (TNT Sports).
+  14. Melbourne: 1956 Olympians reunite at the MCG, 70 years to the day,
+      Dawn Fraser among 30 veterans (AAP / Australian Athletics).
+  15. India declare 720/9 in Wellington — highest Test total in NZ; Pant
+      128, Rahul 136 (Reuters, Sun 22 Nov 00:41 UTC).
+  16. South Korea: education minister Choi Kyo-jin resigns Sunday over the
+      AI-assisted cheating scandal (The Hindu / ABS-CBN, 22 Nov).
+  17. Las Vegas: Verstappen wins the GP (race finished Sun 13:00 WIB),
+      35 lead changes, 3rd Vegas win (Formula1.com / Reuters 2026-11-22).
+  18. South Korea: exports pass $1 trillion, set to be world's 4th-largest
+      exporter (Yonhap, 22 Nov 11:39).
+  DATE CHECK (verified earlier days, left out): EU-Indonesia trade deal
+  signed Sat 21 Nov (Reuters); Nvidia SEC probe, Fri 20 Nov (Reuters);
+  Bolsonaro in ICU, Sat 21 Nov (Reuters); France 45-17 Argentina, Sat 21
+  (rugby). Also excluded, not listed: EU EUR204bn budget cut (Sat 21),
+  Denmark expels Russian attache (Fri 20), Scotland 67-5 Japan (Sat 21),
+  Gaza four-nation aid call (15 Nov), Trump-Xi-Putin summit (Thu 19 Nov),
+  Lebanon Aoun speech (Sat 21), Princess "Heal" trailer (Sat 21),
+  Japan M4.6 "aftershock" posts (unreliable/synthetic sourcing — not used).
 
 Deterministic: no clock, no randomness, no network. Writes entry.png
 (1024x1024) into the output directory given as argv[1] (or $MAKEFUN_OUTPUT_DIR
@@ -172,22 +186,23 @@ def build():
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    # ---------- deep drop shadows under every panel (pseudo-3D) ----------
-    # One blurred RGBA overlay: offset (6,8), black alpha 70 — the skill's
-    # "deeper shadows = pseudo-3D" rule, kept off all text.
+    # ---------- DEEP drop shadows under every panel (pseudo-3D, STRONGER) --
+    # v3: offset (8,10), black alpha 85, blur 8 — deeper than v1's (6,8,70,6).
+    # One blurred RGBA overlay, kept off all text.
     sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     sd = ImageDraw.Draw(sh)
-    shadow_boxes = [(20, 138, 600, 300), (640, 138, 364, 138), (640, 288, 364, 150),
-                    (20, 452, 320, 296), (352, 452, 320, 296), (684, 452, 320, 296),
-                    (20, 762, 984, 178)]
+    shadow_boxes = [(20, 128, 984, 78), (20, 212, 600, 300), (640, 212, 364, 138),
+                    (640, 356, 364, 150),
+                    (20, 518, 320, 296), (352, 518, 320, 296), (684, 518, 320, 296),
+                    (20, 820, 984, 180)]
     for (x, y, w, h) in shadow_boxes:
-        sd.rounded_rectangle([x + 6, y + 8, x + w + 6, y + h + 8], radius=10,
-                             fill=(0, 0, 0, 70))
-    sh = sh.filter(ImageFilter.GaussianBlur(6))
+        sd.rounded_rectangle([x + 8, y + 10, x + w + 8, y + h + 10], radius=10,
+                             fill=(0, 0, 0, 85))
+    sh = sh.filter(ImageFilter.GaussianBlur(8))
     img.paste(sh, (0, 0), sh)
     d = ImageDraw.Draw(img)
 
-    # ---------- masthead (v1's, the proven one) ----------
+    # ---------- masthead (v1's, the proven one; tag updated 6 -> 24) -------
     d.rectangle([0, 0, W, 118], fill=NAVY)
     d.rectangle([0, 118, W, 122], fill=GOLD)
     kicker = "THE WORLD IN ONE PICTURE"
@@ -196,12 +211,54 @@ def build():
     date = "SUNDAY, 22 NOVEMBER 2026"
     df = font(46, bold=True)
     d.text(((W - text_w(d, date, df)) / 2, 38), date, font=df, fill=WHITE)
-    tag = "Six stories that defined the day  ·  Hormuz  ·  Geneva  ·  Antalya  ·  Jakarta"
+    tag = "24 stories that defined the day  ·  Hormuz  ·  Geneva  ·  Antalya  ·  Jakarta"
     tf = font(16)
     d.text(((W - text_w(d, tag, tf)) / 2, 94), tag, font=tf, fill=(190, 198, 214))
 
+    # ---------- NUMBERS STRIP + REGION BAR (new in v3) ----------------------
+    nx0, ny0, nw0, nh0 = 20, 128, 984, 78
+    panel(d, nx0, ny0, nw0, nh0, WHITE, outline=LIGHT_LINE)
+    numbers = [
+        ("720", "INDIA'S TEST TOTAL"),
+        ("23,000", "GERMAN STRIKERS"),
+        ("856", "HONG KONG CANDIDATES"),
+        ("70", "YEARS SINCE '56 GAMES"),
+        ("~200", "NATIONS AT COP31"),
+        ("3", "MISSILES AT RIYADH"),
+    ]
+    cell_w = (nw0 - 32) // 6
+    for i, (num, label) in enumerate(numbers):
+        cx0 = nx0 + 16 + i * cell_w
+        # number with a soft drop shadow (lifted off the panel = depth)
+        nf = fit_font(d, num, 30, cell_w - 12, bold=True)
+        d.text((cx0 + 2, ny0 + 8 + 2), num, font=nf, fill=(200, 192, 172))
+        d.text((cx0, ny0 + 8), num, font=nf, fill=NAVY)
+        lf = fit_font(d, label, 11, cell_w - 12, bold=True)
+        d.text((cx0, ny0 + 42), label, font=lf, fill=GREY)
+        if i:
+            d.line([cx0 - 7, ny0 + 10, cx0 - 7, ny0 + 52], fill=LIGHT_LINE, width=1)
+    # region bar: story counts per region across all 24 stories
+    regions = [("MIDDLE EAST", 4), ("EUROPE", 7), ("ASIA-PACIFIC", 7),
+               ("AMERICAS", 5), ("AFRICA", 1)]
+    rx = nx0 + 16
+    ry = ny0 + 60
+    rf = font(13, bold=True)
+    for name, count in regions:
+        d.text((rx, ry), name, font=rf, fill=NAVY)
+        rx += text_w(d, name, rf) + 4
+        d.text((rx, ry), str(count), font=rf, fill=RED)
+        rx += text_w(d, str(count), rf) + 14
+        if name != "AFRICA":
+            d.text((rx, ry), "·", font=rf, fill=GREY)
+            rx += text_w(d, "·", rf) + 14
+    d.text((nx0 + nw0 - 16 - text_w(d, "24 STORIES", rf), ry), "24 STORIES",
+           font=rf, fill=TEAL_DARK)
+
     # ---------- LEAD: Hormuz (left, big) — layered-depth seascape ----------
-    lx, ly, lw, lh = 20, 138, 600, 300
+    # v1's art, depth strengthened: stronger rim light on the near tanker,
+    # a foreground wave crest at the bottom of the sea (near = darker + a
+    # light crest), deeper fire glow. Geometry and text unchanged.
+    lx, ly, lw, lh = 20, 212, 600, 300
     panel(d, lx, ly, lw, lh, WHITE, outline=LIGHT_LINE)
     ax, ay, aw, ah = lx + 14, ly + 14, lw - 28, 168
     d.rounded_rectangle([ax, ay, ax + aw, ay + ah], radius=8, fill=NAVY)
@@ -224,6 +281,8 @@ def build():
         y0 = horizon + i * (ay + ah - horizon) // 6
         y1 = horizon + (i + 1) * (ay + ah - horizon) // 6
         d.rectangle([ax, y0, ax + aw, y1], fill=col)
+    # foreground wave crest: a thin light line at the very bottom (near layer)
+    d.line([ax, ay + ah - 4, ax + aw, ay + ah - 4], fill=(96, 128, 160), width=2)
     # far tanker: small + hazed (background layer, guanmo-studio rule)
     fx, fy, fw, fh = ax + 84, horizon - 22, 150, 22
     d.rectangle([fx, fy, fx + fw, fy + fh], fill=(112, 122, 142))
@@ -236,22 +295,22 @@ def build():
     # near tanker: big + dark + sharp (foreground layer) with rim light
     nx, ny, nw, nh = ax + 210, horizon + 8, 300, 44
     d.rectangle([nx, ny, nx + nw, ny + nh], fill=(18, 22, 30))
-    d.rectangle([nx, ny, nx + nw, ny + 4], fill=(120, 130, 150))  # rim light
+    d.rectangle([nx, ny, nx + nw, ny + 5], fill=(140, 150, 170))  # rim light, stronger
     d.rectangle([nx, ny + nh - 10, nx + nw, ny + nh], fill=(150, 40, 30))
     d.rectangle([nx + 30, ny - 22, nx + 110, ny], fill=(235, 235, 230))
     d.rectangle([nx + 200, ny - 16, nx + 232, ny], fill=(235, 235, 230))
     d.rectangle([nx + 120, ny - 30, nx + 140, ny], fill=(200, 60, 40))  # funnel
+    d.rectangle([nx + 120, ny - 30, nx + 140, ny - 26], fill=(255, 120, 80))  # funnel rim
     # smoke: far column light + small, near column tall + dark with fire glow
-    # (all centres clamped so no puff escapes the art box)
     ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od = ImageDraw.Draw(ov)
     for sx, sy, sr, a in [(fx + 114, fy - 26, 10, 60), (fx + 118, fy - 40, 13, 48)]:
         od.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(200, 200, 210, a))
     # fire licking from the deck: glow ellipses centred on the hull top so
     # they read as flames, not a second sun (v1 lesson: no floating sun)
-    od.ellipse([nx + 130 - 26, ny - 20, nx + 130 + 26, ny + 4], fill=(255, 110, 20, 150))
-    od.ellipse([nx + 130 - 18, ny - 14, nx + 130 + 18, ny + 4], fill=(255, 190, 60, 200))
-    od.ellipse([nx + 130 - 10, ny - 8, nx + 130 + 10, ny + 4], fill=(255, 240, 160, 230))
+    od.ellipse([nx + 130 - 28, ny - 22, nx + 130 + 28, ny + 4], fill=(255, 110, 20, 170))
+    od.ellipse([nx + 130 - 18, ny - 14, nx + 130 + 18, ny + 4], fill=(255, 190, 60, 210))
+    od.ellipse([nx + 130 - 10, ny - 8, nx + 130 + 10, ny + 4], fill=(255, 240, 160, 235))
     for sx, sy, sr, a in [(nx + 122, ny - 58, 12, 110), (nx + 136, ny - 76, 16, 90),
                           (nx + 128, ny - 84, 12, 70)]:
         od.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(70, 70, 80, a))
@@ -269,10 +328,11 @@ def build():
     d.text((tx, ty + 22), "TANKERS HIT IN HORMUZ", font=font(33, bold=True), fill=INK)
     d.text((tx, ty + 62), "Bahrain says Iran struck a site; two tankers hit in the strait.",
            font=font(18), fill=GREY)
+    d.text((tx, ly + 282), "Sources: The Hindu · Gulf News", font=font(11), fill=GREY)
 
     # ---------- right column, top: Geneva — document stack with depth ----------
     rx, rw = 640, 364
-    kx, ky, kh = rx, 138, 138
+    kx, ky, kh = rx, 212, 138
     panel(d, kx, ky, rw, kh, WHITE, outline=LIGHT_LINE)
     ax2, ay2, aw2, ah2 = kx + 10, ky + 10, rw - 20, 62
     d.rounded_rectangle([ax2, ay2, ax2 + aw2, ay2 + ah2], radius=6, fill=NAVY)
@@ -281,15 +341,13 @@ def build():
     od2 = ImageDraw.Draw(ov2)
     for fx0 in (ax2 + 22, ax2 + 138, ax2 + 254):
         od2.rectangle([fx0 + 3, ay2 + 11, fx0 + 84 + 3, ay2 + 11 + 32 + 3],
-                      fill=(0, 0, 0, 90))
+                      fill=(0, 0, 0, 110))
     img.paste(ov2, (0, 0), ov2)
     d = ImageDraw.Draw(img)
     flag_us(d, ax2 + 22, ay2 + 8, 84, 32)
     flag_ua(d, ax2 + 138, ay2 + 8, 84, 32)
     flag_ru(d, ax2 + 254, ay2 + 8, 84, 32)
     # "28 POINTS" as a small white tag INSIDE the art box, below the flags
-    # (the earlier stacked document sat below the art box and collided with
-    # the headline — a tag inside the art keeps the label and the text apart)
     tag_x, tag_y, tag_w, tag_h = ax2 + 117, ay2 + 44, 120, 16
     d.rounded_rectangle([tag_x, tag_y, tag_x + tag_w, tag_y + tag_h], radius=8,
                         fill=WHITE)
@@ -300,10 +358,11 @@ def build():
     d.text((kx + 14, ky + 80), "DIPLOMACY", font=font(15, bold=True), fill=RED)
     d.text((kx + 14, ky + 98), "TALKS ON THE 28 POINTS",
            font=fit_font(d, "TALKS ON THE 28 POINTS", 25, rw - 28), fill=INK)
-    d.text((kx + 14, ky + 122), "US, Kyiv and Europe meet in Geneva.", font=font(15), fill=GREY)
+    d.text((kx + 14, ky + 122), "US, Kyiv, Europe meet in Geneva. (Reuters)",
+           font=font(15), fill=GREY)
 
     # ---------- right column, bottom: COP31 (v3's proven sun + thermometer) ----------
-    cx, cy, ch = rx, 288, 150
+    cx, cy, ch = rx, 356, 150
     panel(d, cx, cy, rw, ch, WHITE, outline=LIGHT_LINE)
     ax3, ay3, aw3, ah3 = cx + 10, cy + 10, rw - 20, 62
     d.rounded_rectangle([ax3, ay3, ax3 + aw3, ay3 + ah3], radius=6, fill=(214, 238, 240))
@@ -333,13 +392,15 @@ def build():
     d.text((cx + 14, cy + 80), "CLIMATE", font=font(15, bold=True), fill=RED)
     d.text((cx + 14, cy + 98), "COP31: FOSSIL FUELS MISSING",
            font=fit_font(d, "COP31: FOSSIL FUELS MISSING", 25, rw - 28), fill=INK)
-    d.text((cx + 14, cy + 122), "Final draft still omits coal, oil and gas.", font=font(15), fill=GREY)
+    d.text((cx + 14, cy + 122), "Draft still omits coal, oil and gas. (AFP)",
+           font=font(15), fill=GREY)
 
-    # ---------- row 2: three panels (v1's geometry) ----------
-    ry, rh = 452, 296
+    # ---------- row 2: three panels (v1's geometry, depth strengthened) ------
+    ry, rh = 518, 296
     cols = [(20, 320), (352, 320), (684, 320)]
 
-    # Houthi missiles over Riyadh (v3's proven night-sky art)
+    # Houthi missiles over Riyadh (v3's proven night-sky art) + foreground
+    # rooftop silhouette (near layer, darkest) for extra layered depth
     px, pw = cols[0]
     panel(d, px, ry, pw, rh, WHITE, outline=LIGHT_LINE)
     ax4, ay4, aw4, ah4 = px + 12, ry + 12, pw - 24, 130
@@ -357,14 +418,19 @@ def build():
     base = ay4 + ah4
     for bx, bw_, bh_ in [(0, 60, 24), (64, 46, 36), (114, 58, 20), (176, 50, 32), (230, 46, 22)]:
         d.rectangle([ax4 + bx, base - bh_, ax4 + bx + bw_, base], fill=(14, 14, 22))
+    # foreground rooftop: darkest strip across the bottom + one antenna
+    d.rectangle([ax4, base - 10, ax4 + aw4, base], fill=(8, 8, 12))
+    d.rectangle([ax4 + 40, base - 26, ax4 + 43, base - 10], fill=(8, 8, 12))
     d.text((px + 14, ry + 154), "GULF WAR SPREADS", font=font(15, bold=True), fill=RED)
     lines = wrap(d, "MISSILES AT RIYADH STOPPED", font(26, bold=True), pw - 28)
     ty = draw_lines(d, px + 14, ry + 176, lines, font(26, bold=True), INK, leading=30)
-    deck = "Coalition says it downed 3 Houthi missiles."
+    deck = "Coalition downed 3 Houthi missiles."
     lines = wrap(d, deck, font(16), pw - 28)
     draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    d.text((px + 14, ry + 282), "Source: Manila Times", font=font(11), fill=GREY)
 
-    # Jakarta factory fire — layered flames (v3's clean fire) + roof rim light
+    # Jakarta factory fire — layered flames (v3's clean fire) + roof rim light,
+    # plus a dark foreground ground strip at the art's bottom (near layer)
     px, pw = cols[1]
     panel(d, px, ry, pw, rh, WHITE, outline=LIGHT_LINE)
     ax5, ay5, aw5, ah5 = px + 12, ry + 12, pw - 24, 130
@@ -378,8 +444,9 @@ def build():
         d.rectangle([fx0 + 14 + wx * 42, fy0 + 16, fx0 + 30 + wx * 42, fy0 + 30],
                     fill=(255, 210, 90))
     d.rectangle([fx0 + 196, fy0 + 30, fx0 + 236, fy0 + 66], fill=(18, 18, 28))
+    # foreground ground strip (near layer, darkest) at the art's bottom
+    d.rectangle([ax5, ay5 + ah5 - 8, ax5 + aw5, ay5 + ah5], fill=(10, 10, 16))
     # layered flames at the roofline + smoke puffs on an RGBA overlay
-    # (puff centres clamped so no puff escapes the art box)
     ov3 = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od3 = ImageDraw.Draw(ov3)
     fxc = fx0 + 90
@@ -397,8 +464,10 @@ def build():
     deck = "3 killed, 36 missing after the blaze."
     lines = wrap(d, deck, font(16), pw - 28)
     draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    d.text((px + 14, ry + 282), "Source: Economic Times", font=font(11), fill=GREY)
 
     # Mexico: El Chapo Isidro captured — gold star badge with depth
+    # (drop shadow + halo glow behind the star = floating above the skyline)
     px, pw = cols[2]
     panel(d, px, ry, pw, rh, WHITE, outline=LIGHT_LINE)
     ax6, ay6, aw6, ah6 = px + 12, ry + 12, pw - 24, 130
@@ -408,7 +477,7 @@ def build():
     for bx, bw_, bh_ in [(0, 46, 18), (50, 40, 26), (94, 52, 14), (150, 44, 22),
                          (198, 50, 16), (252, 44, 24)]:
         d.rectangle([ax6 + bx, base - bh_, ax6 + bx + bw_, base], fill=(16, 22, 40))
-    # big gold star: drop shadow, then the star, then a rim-light edge
+    # big gold star: halo glow, drop shadow, then the star, then a rim edge
     scx, scy, sr = ax6 + 148, ay6 + 58, 42
     star = []
     for i in range(10):
@@ -417,6 +486,7 @@ def build():
         star.append((scx + r * math.cos(a), scy + r * math.sin(a)))
     ov4 = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od4 = ImageDraw.Draw(ov4)
+    od4.ellipse([scx - 50, scy - 50, scx + 50, scy + 50], fill=(212, 175, 55, 25))
     sh_star = [(x + 5, y + 7) for (x, y) in star]
     od4.polygon(sh_star, fill=(0, 0, 0, 110))
     img.paste(ov4, (0, 0), ov4)
@@ -428,16 +498,29 @@ def build():
     d.text((px + 14, ry + 154), "MEXICO", font=font(15, bold=True), fill=RED)
     lines = wrap(d, "EL CHAPO ISIDRO HELD", font(26, bold=True), pw - 28)
     ty = draw_lines(d, px + 14, ry + 176, lines, font(26, bold=True), INK, leading=30)
-    deck = "Cartel boss captured; 11 dead in Sinaloa."
+    deck = "El Chapo Isidro held; 11 dead."
     lines = wrap(d, deck, font(16), pw - 28)
     draw_lines(d, px + 14, ty + 6, lines, font(16), GREY, leading=20)
+    d.text((px + 14, ry + 282), "Source: Japan Times", font=font(11), fill=GREY)
 
-    # ---------- briefs strip: clean single lines, 3 x 2 ----------
-    bx, by, bw, bh = 20, 762, 984, 178
+    # ---------- briefs strip: 18 briefs, 3 x 6 + DATE CHECK line ------------
+    bx, by, bw, bh = 20, 820, 984, 180
     panel(d, bx, by, bw, bh, (236, 230, 214), outline=LIGHT_LINE)
-    d.text((bx + 16, by + 12), "ALSO TODAY", font=font(18, bold=True), fill=NAVY)
-    d.line([bx + 16, by + 38, bx + bw - 16, by + 38], fill=LIGHT_LINE, width=2)
+    d.text((bx + 16, by + 10), "ALSO TODAY — 18 MORE STORIES", font=font(18, bold=True), fill=NAVY)
+    d.line([bx + 16, by + 36, bx + bw - 16, by + 36], fill=LIGHT_LINE, width=2)
     briefs = [
+        ("NEPAL", "PM Shah in Delhi; border talks."),
+        ("GEORGIA", "Day of mourning for blast dead."),
+        ("HONG KONG", "856 run for 723 seats."),
+        ("GERMANY", "23,000 to strike Monday."),
+        ("IRAN", "Rolling power cuts begin."),
+        ("TURIN", "Zverev v Alcaraz in ATP final."),
+        ("LIVERPOOL", "Host Man Utd, 16:30 GMT."),
+        ("MELBOURNE", "'56 Olympians reunite, 70 yrs on."),
+        ("INDIA", "720/9, record Test total in NZ."),
+        ("S. KOREA", "Minister quits in AI scandal."),
+        ("LAS VEGAS", "Verstappen wins thriller."),
+        ("KOREA", "Exports pass $1 trillion."),
         ("NIGERIA", "Boat capsizes; 24 dead."),
         ("FRANCE", "Protests enter a sixth weekend."),
         ("PERU", "6.7 quake; no deaths reported."),
@@ -448,17 +531,27 @@ def build():
     cell_w = (bw - 32) // 3
     for i, (kick, text) in enumerate(briefs):
         cx0 = bx + 16 + (i % 3) * cell_w
-        cy0 = by + 56 + (i // 3) * 56
+        cy0 = by + 44 + (i // 3) * 20
         full = kick + " — " + text
-        fnt = fit_font(d, full, 17, cell_w - 16, bold=False)
+        fnt = fit_font(d, full, 16, cell_w - 16, bold=False)
         d.text((cx0, cy0), kick + " — ", font=font(fnt.size, bold=True), fill=INK)
         kw = text_w(d, kick + " — ", font(fnt.size, bold=True))
         d.text((cx0 + kw, cy0), text, font=fnt, fill=INK)
+    # DATE CHECK: what was left out as not-22-Nov (all verified earlier days)
+    dc_y = by + 164
+    d.text((bx + 16, dc_y), "DATE CHECK", font=font(12, bold=True), fill=RED)
+    dcw = text_w(d, "DATE CHECK ", font(12, bold=True))
+    d.text((bx + 16 + dcw, dc_y),
+           "Left out, not 22 Nov: EU–Indonesia deal (Sat) · Nvidia probe (Fri) · "
+           "Bolsonaro in ICU (Sat) · France 45–17 Argentina (Sat)",
+           font=font(12), fill=GREY)
 
-    # ---------- footer ----------
-    foot = "All events of Sunday 22 November 2026  ·  Drawn from the day's reporting"
-    ff = font(15)
-    d.text(((W - text_w(d, foot, ff)) / 2, 956), foot, font=ff, fill=GREY)
+    # ---------- footer: date + full sources line -----------------------------
+    foot = ("All events of Sunday 22 November 2026 · Sources: Reuters, AFP, SCMP, "
+            "ANI, The Hindu, Yonhap, AAP, F1.com, TNT, Civil Georgia, ET, Dawn, "
+            "Japan Times, Manila Times")
+    ff = font(12)
+    d.text(((W - text_w(d, foot, ff)) / 2, 1006), foot, font=ff, fill=GREY)
 
     outdir = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(outdir, exist_ok=True)
